@@ -16,10 +16,12 @@ newnames = {"SETTLEMENTDATE": "date", "DIESEL_OIL": "Distillate -  MW", "NATURAL
 
 #download source data
 savedata = "nemlog-{0}.csv".format(timestamp.strftime("%d%b%Y%H%M"))
-os.system("wget " + baselink.format(start, end, savedata))
+path = os.getcwd()
+fullpath = os.path.join(path, savedata)
+os.system("wget " + baselink.format(start, end, fullpath))
 
 #load into python
-df = pd.read_csv(savedata)
+df = pd.read_csv(fullpath)
 
 #filter out excess columns
 df = df.filter(items=newnames.keys())
